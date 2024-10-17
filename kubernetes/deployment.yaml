@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-transforms
+  labels:
+    app: kafka-transforms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-transforms
+  template:
+    metadata:
+      labels:
+        app: kafka-transforms
+    spec:
+      containers:
+      - name: kafka-transforms
+        image: poc/kafka-transforms:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: KAFKA_USERNAME
+          value: BMX6E6JIHEPHFF2X
+        - name: KAFKA_SERVER
+          value: pkc-lzvrd.us-west4.gcp.confluent.cloud:9092
+        - name: KAFKA_PASSWORD
+          value: ""
+      imagePullSecrets:
+      - name: regcred-kafka

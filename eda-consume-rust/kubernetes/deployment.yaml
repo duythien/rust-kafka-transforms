@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-eda-bot-trader
+  labels:
+    app: kafka-eda-bot-trader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-eda-bot-trader
+  template:
+    metadata:
+      labels:
+        app: kafka-eda-bot-trader
+    spec:
+      containers:
+      - name: kafka-eda-bot-trader
+        image: eda-consume
+        imagePullPolicy: Always
+        env:
+        - name: KAFKA_USERNAME
+          value: BMX6E6JIHEPHFF2X
+        - name: KAFKA_SERVER
+          value: pkc-lzvrd.us-west4.gcp.confluent.cloud:9092
+        - name: KAFKA_PASSWORD
+          value: ""
+      imagePullSecrets:
+      - name: regcred-kafka
